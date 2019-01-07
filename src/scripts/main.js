@@ -1,3 +1,4 @@
+const targetContainer = document.getElementById("display-container");
 const financialAdvisor = Object.create({}, {
   company: {
       value: "Mad Men Financial Radness Co.",
@@ -37,8 +38,9 @@ const financialAdvisor = Object.create({}, {
       value: () => {
         const portfolioToLoop = financialAdvisor.portfolio
         const stocksTimesValue = portfolioToLoop.map(shiz => shiz.quantity * shiz.price)
-        const allStockValue = stocksTimesValue.reduce((allValue, indieValue) => allValue + indieValue)
-        console.log(`Overall current stock net worth is: $${allStockValue}`, portfolioToLoop)
+        const allStockValue = stocksTimesValue.reduce((allValue, indieValue) => allValue + indieValue);
+        // console.log(`Overall current stock net worth is: $${allStockValue}`, portfolioToLoop)
+        return allStockValue
       }
   },
   purchase: {
@@ -63,17 +65,24 @@ const financialAdvisor = Object.create({}, {
             console.log(`Sold ${quantity} units of ${portfolioInfo.stock} stock at $${price} a share it's now:`, portfolioInfo)
           }
         })
-        
-
       }
+  },
+  toString: {
+    value: () => {
+      const sentence =`${financialAdvisor.name} is an advisor at ${financialAdvisor.company} His current portfolio value is US$${financialAdvisor.worth()}`
+      const sentenceContainer = document.createElement("p");
+      sentenceContainer.textContent = sentence;
+      targetContainer.appendChild(sentenceContainer)
+    }
   }
 });
 
 console.log(financialAdvisor.purchase("TMNT", 100, 10));
 console.log(financialAdvisor.sell("TMNT", 50, 10));
 console.log(financialAdvisor.worth());
+console.log(financialAdvisor.toString());
 
-const targetContainer = document.getElementById("display-container");
+
 const sellerContainer = document.createElement("article");
 const sellerName = document.createElement("h2");
 const sellerCompany = document.createElement("h3");
