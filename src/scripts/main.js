@@ -35,7 +35,10 @@ const financialAdvisor = Object.create({}, {
   },
   worth: {
       value: () => {
-        console.log("yo")
+        const portfolioToLoop = financialAdvisor.portfolio
+        const stocksTimesValue = portfolioToLoop.map(shiz => shiz.quantity * shiz.price)
+        const allStockValue = stocksTimesValue.reduce((allValue, indieValue) => allValue + indieValue)
+        console.log(`Current stock net worth is: $${allStockValue}`)
       }
   },
   purchase: {
@@ -55,4 +58,46 @@ const financialAdvisor = Object.create({}, {
   }
 });
 
-console.log(financialAdvisor.speciality)
+console.log(financialAdvisor.worth())
+
+// const testAr = [
+//   {
+//   addthis: 10
+// },
+//   {
+//   addthis: 10
+// },
+//   {
+//   addthis: 10
+// },
+//   {
+//   addthis: 10
+// },
+//   {
+//   addthis: 10
+// },
+// ]
+
+
+// const mappedThing = testAr.map(thing => {
+//   // console.log(thing.addthis)
+//   return thing.addthis
+// })
+// // console.log(mappedThing)
+
+// const addinUp = mappedThing.reduce((ac, digits) => {
+//   let shibs = ac + digits
+//   return shibs
+// })
+// // console.log(addinUp)
+
+// var kvArray = [{key: 1, value: 10},
+//   {key: 2, value: 20},
+//   {key: 3, value: 30}];
+
+// var reformattedArray = kvArray.map(obj =>{
+// var rObj = {};
+// rObj[obj.key] = obj.value;
+// return rObj;
+// });
+// // console.log(kvArray)
