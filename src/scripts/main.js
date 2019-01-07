@@ -1,6 +1,6 @@
-const JuanRodriguezPatient = Object.create({}, {
+const financialAdvisor = Object.create({}, {
   company: {
-      value: "Deft Prose Finance Radness",
+      value: "Deft Prose Financial Radness Co.",
       enumerable: true,
       writable: false
   },
@@ -26,7 +26,7 @@ const JuanRodriguezPatient = Object.create({}, {
         buyTransaction: true
       },
       {
-        stock: "MCRS",
+        stock: "MMW3",
         quantity: 10,
         price: 100.00,
         buyTransaction: true
@@ -54,3 +54,5 @@ const JuanRodriguezPatient = Object.create({}, {
       }
   }
 });
+
+console.log(financialAdvisor.speciality)
