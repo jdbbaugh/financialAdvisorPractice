@@ -21,7 +21,7 @@ const financialAdvisor = Object.create({}, {
       },
       {
         stock: "TMNT",
-        quantity: 75,
+        quantity: 100,
         price: 10.00,
         buyTransaction: true
       },
@@ -42,62 +42,24 @@ const financialAdvisor = Object.create({}, {
       }
   },
   purchase: {
-      value:  () => {
-          return `${this.firstName} ${this.lastName}`
+      value:  (ticker, quantity, price) => {
+        const portfolioToLoop = financialAdvisor.portfolio
+        portfolioToLoop.forEach(portfolioInfo => {
+          if (portfolioInfo.stock === ticker) {
+            portfolioInfo.quantity += quantity;
+            portfolioInfo.price = ((portfolioInfo.price * portfolioInfo.quantity) + (price * quantity)) / (quantity + portfolioInfo.quantity);
+            console.log(portfolioInfo)
+          }
+        })
       }
   },
   sell: {
-      value: () => {
-          const dob = new Date(this.dob)
-          const yearBirth = dob.getFullYear()
-          const now = new Date()
-          const yearNow = now.getFullYear()
+      value: (ticker, quantity, price) => {
 
-          return yearNow - yearBirth
       }
   }
 });
 
-console.log(financialAdvisor.worth())
-
-// const testAr = [
-//   {
-//   addthis: 10
-// },
-//   {
-//   addthis: 10
-// },
-//   {
-//   addthis: 10
-// },
-//   {
-//   addthis: 10
-// },
-//   {
-//   addthis: 10
-// },
-// ]
-
-
-// const mappedThing = testAr.map(thing => {
-//   // console.log(thing.addthis)
-//   return thing.addthis
-// })
-// // console.log(mappedThing)
-
-// const addinUp = mappedThing.reduce((ac, digits) => {
-//   let shibs = ac + digits
-//   return shibs
-// })
-// // console.log(addinUp)
-
-// var kvArray = [{key: 1, value: 10},
-//   {key: 2, value: 20},
-//   {key: 3, value: 30}];
-
-// var reformattedArray = kvArray.map(obj =>{
-// var rObj = {};
-// rObj[obj.key] = obj.value;
-// return rObj;
-// });
-// // console.log(kvArray)
+// console.log(financialAdvisor.worth());
+console.log(financialAdvisor.purchase("TMNT", 100, 10));
+// console.log(financialAdvisor.portfolio[1]);
