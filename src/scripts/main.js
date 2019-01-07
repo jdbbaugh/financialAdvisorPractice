@@ -1,11 +1,11 @@
 const financialAdvisor = Object.create({}, {
   company: {
-      value: "Deft Prose Financial Radness Co.",
+      value: "Mad Men Financial Radness Co.",
       enumerable: true,
       writable: false
   },
   speciality: {
-      value: "import export trafficing",
+      value: "Import/Exports",
       enumerable: true
   },
   name: {
@@ -38,7 +38,7 @@ const financialAdvisor = Object.create({}, {
         const portfolioToLoop = financialAdvisor.portfolio
         const stocksTimesValue = portfolioToLoop.map(shiz => shiz.quantity * shiz.price)
         const allStockValue = stocksTimesValue.reduce((allValue, indieValue) => allValue + indieValue)
-        console.log(`Current stock net worth is: $${allStockValue}`)
+        console.log(`Overall current stock net worth is: $${allStockValue}`, portfolioToLoop)
       }
   },
   purchase: {
@@ -48,18 +48,27 @@ const financialAdvisor = Object.create({}, {
           if (portfolioInfo.stock === ticker) {
             portfolioInfo.quantity += quantity;
             portfolioInfo.price = ((portfolioInfo.price * portfolioInfo.quantity) + (price * quantity)) / (quantity + portfolioInfo.quantity);
-            console.log(portfolioInfo)
+            console.log(`Purchased ${quantity} units of ${portfolioInfo.stock} stock at $${price} a share it's now:`, portfolioInfo)
           }
         })
       }
   },
   sell: {
       value: (ticker, quantity, price) => {
+        const portfolioToLoop = financialAdvisor.portfolio
+        portfolioToLoop.forEach(portfolioInfo => {
+          if (portfolioInfo.stock === ticker) {
+            portfolioInfo.quantity -= quantity;
+            portfolioInfo.price = ((portfolioInfo.price * portfolioInfo.quantity) + (price * quantity)) / (quantity + portfolioInfo.quantity);
+            console.log(`Sold ${quantity} units of ${portfolioInfo.stock} stock at $${price} a share it's now:`, portfolioInfo)
+          }
+        })
+        
 
       }
   }
 });
 
-// console.log(financialAdvisor.worth());
 console.log(financialAdvisor.purchase("TMNT", 100, 10));
-// console.log(financialAdvisor.portfolio[1]);
+console.log(financialAdvisor.sell("TMNT", 50, 10));
+console.log(financialAdvisor.worth());
