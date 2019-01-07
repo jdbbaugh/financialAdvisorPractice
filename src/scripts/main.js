@@ -1,6 +1,6 @@
-const JuanRodriguezPatient = Object.create({}, {
+const financialAdvisor = Object.create({}, {
   company: {
-      value: "Deft Prose Finance Radness",
+      value: "Deft Prose Financial Radness Co.",
       enumerable: true,
       writable: false
   },
@@ -21,12 +21,12 @@ const JuanRodriguezPatient = Object.create({}, {
       },
       {
         stock: "TMNT",
-        quantity: 75,
+        quantity: 100,
         price: 10.00,
         buyTransaction: true
       },
       {
-        stock: "MCRS",
+        stock: "MMW3",
         quantity: 10,
         price: 100.00,
         buyTransaction: true
@@ -35,22 +35,31 @@ const JuanRodriguezPatient = Object.create({}, {
   },
   worth: {
       value: () => {
-        console.log("yo")
+        const portfolioToLoop = financialAdvisor.portfolio
+        const stocksTimesValue = portfolioToLoop.map(shiz => shiz.quantity * shiz.price)
+        const allStockValue = stocksTimesValue.reduce((allValue, indieValue) => allValue + indieValue)
+        console.log(`Current stock net worth is: $${allStockValue}`)
       }
   },
   purchase: {
-      value:  () => {
-          return `${this.firstName} ${this.lastName}`
+      value:  (ticker, quantity, price) => {
+        const portfolioToLoop = financialAdvisor.portfolio
+        portfolioToLoop.forEach(portfolioInfo => {
+          if (portfolioInfo.stock === ticker) {
+            portfolioInfo.quantity += quantity;
+            portfolioInfo.price = ((portfolioInfo.price * portfolioInfo.quantity) + (price * quantity)) / (quantity + portfolioInfo.quantity);
+            console.log(portfolioInfo)
+          }
+        })
       }
   },
   sell: {
-      value: () => {
-          const dob = new Date(this.dob)
-          const yearBirth = dob.getFullYear()
-          const now = new Date()
-          const yearNow = now.getFullYear()
+      value: (ticker, quantity, price) => {
 
-          return yearNow - yearBirth
       }
   }
 });
+
+// console.log(financialAdvisor.worth());
+console.log(financialAdvisor.purchase("TMNT", 100, 10));
+// console.log(financialAdvisor.portfolio[1]);
