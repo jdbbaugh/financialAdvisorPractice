@@ -72,3 +72,42 @@ const financialAdvisor = Object.create({}, {
 console.log(financialAdvisor.purchase("TMNT", 100, 10));
 console.log(financialAdvisor.sell("TMNT", 50, 10));
 console.log(financialAdvisor.worth());
+
+const targetContainer = document.getElementById("display-container");
+const sellerContainer = document.createElement("article");
+const sellerName = document.createElement("h2");
+const sellerCompany = document.createElement("h3");
+const sellerSpeciality = document.createElement("h3");
+
+sellerContainer.setAttribute("id","seller-container");
+
+sellerName.textContent = financialAdvisor.name;
+sellerCompany.textContent = financialAdvisor.company;
+sellerSpeciality.textContent = financialAdvisor.speciality;
+
+targetContainer.appendChild(sellerContainer);
+sellerContainer.appendChild(sellerName);
+sellerContainer.appendChild(sellerCompany);
+sellerContainer.appendChild(sellerSpeciality);
+
+const sellersStockContainer = document.createElement("div");
+sellersStockContainer.setAttribute("id", "stock-container");
+sellerContainer.appendChild(sellersStockContainer)
+
+financialAdvisor.portfolio.forEach(stock => {
+  console.log(stock.stock)
+  const stockFrag = document.createDocumentFragment();
+  const stockName = document.createElement("h4");
+  const stockQuantity = document.createElement("p");
+  const stockPrice = document.createElement("p");
+
+  stockName.textContent = `STOCK: ${stock.stock}`;
+  stockQuantity.textContent = `units: ${stock.quantity}`;
+  stockPrice.textContent = `price: ${stock.price}`;
+
+  stockFrag.appendChild(stockName);
+  stockFrag.appendChild(stockQuantity);
+  stockFrag.appendChild(stockPrice);
+
+  sellersStockContainer.appendChild(stockFrag);
+});
